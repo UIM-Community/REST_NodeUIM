@@ -16,7 +16,7 @@ const lib = require('./lib');
 const fs  = require('fs');
 
 const Rest = new lib.REST({
-    hostname: "portail-ca.com",
+    hostname: "portail-url.com",
     user: "administrator",
     password: "password"
 });
