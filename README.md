@@ -15,8 +15,9 @@ const Rest = new lib.REST({
     password: "password"
 });
 
-const res = Rest.alarms.summary().then( body => {
-    fs.writeFileSync('./alarms.json',JSON.stringify(body,null,4));
+setImmediate( async() => {
+    const alarms = await Rest.alarms.summary();
+    fs.writeFileSync('./alarms.json',JSON.stringify(alarms,null,4));
     console.log('done');
 });
 ```
