@@ -1,6 +1,12 @@
 # REST_NodeUIM
 NodeJS RESTFul lib for CA UIM
 
+This lib is just an example on how to achieve RESTFul with NodeJS for CA UIM.
+
+## Requirement
+
+- NodeJS 7.6.0 or higher.
+
 ## Examples 
 
 ```js
