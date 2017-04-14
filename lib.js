@@ -27,6 +27,8 @@ class Request extends events {
         const req = http.request(opts, (res) => {
             res.setEncoding('utf8');
 
+            this.statusCode = res.statusCode;
+
             res.on('data', (chunk) => {
                 this.chunk+=chunk;
             });
@@ -103,6 +105,27 @@ class REST {
         };
     }
 
+    accounts() {
+        return new Promise( (resolve,reject) => {
+            const request = new Request({
+                auth: this.auth,
+                hostname: this.hostname,
+                path: "/rest/accounts/",
+                timeout: REST.timeout
+            });
+            
+            request.on('done', body => {
+                if(request.statusCode != 200) {
+                    reject("Request failed");
+                }
+                else {
+                    resolve(body);
+                }
+            });
+            request.on('error', err => reject(err));
+        });
+    }
+
     summary() {
         return new Promise( (resolve,reject) => {
             const request = new Request({
@@ -112,7 +135,14 @@ class REST {
                 timeout: REST.timeout
             });
             
-            request.on('done', body => resolve(body));
+            request.on('done', body => {
+                if(request.statusCode != 200) {
+                    reject("Request failed");
+                }
+                else {
+                    resolve(body);
+                }
+            });
             request.on('error', err => reject(err));
         });
     }
@@ -128,13 +158,20 @@ class REST {
                 timeout: REST.timeout
             });
             
-            request.on('done', body => resolve(body));
+            request.on('done', body => {
+                if(request.statusCode != 200) {
+                    reject("Request failed");
+                }
+                else {
+                    resolve(body);
+                }
+            });
             request.on('error', err => reject(err));
         });
     }
 
 }
-REST.timeout = 10000;
+REST.timeout = 5000;
 
 // EXPORT CLASSES
 module.exports = {REST,PDS};
